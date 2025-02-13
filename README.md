@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Auto-Generate Prompt CRUD with Next.js 15, Supabase & ChatGPT-4o
 
-## Getting Started
+This project is a **Next.js 15 App Router** application that provides a CRUD system for automatically generating AI prompts using **ChatGPT-4o**. The generated prompts are stored in **Supabase** and displayed in a **data table** with **searching, pagination, and sorting** features.
 
-First, run the development server:
+## 🚀 Features
+
+✅ **User Input Form**: Users can input question types in a textbox.
+✅ **AI Prompt Generation**: The app calls ChatGPT-4o to generate a structured prompt based on user input.
+✅ **Supabase Database Integration**: Generated prompts are stored in a PostgreSQL database.
+✅ **Interactive Data Table**: View, search, sort, and paginate stored prompts.
+✅ **Next.js 15 (App Router) Optimized**: Fully serverless and API-based CRUD.
+
+---
+
+## 🛠️ Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/ivandj0h/prompt-app.git
+cd prompt-app
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Set up environment variables
+
+Create a `.env.local` file in the root directory and add:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+### 4️⃣ Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 API Endpoints
 
-## Learn More
+### 🔹 Generate a Prompt
 
-To learn more about Next.js, take a look at the following resources:
+**Endpoint:** `POST /api/generate`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Request Body:** `{ "question": "Your question here" }`
+- **Response:** `{ "id": "uuid", "question": "Your question", "generated_prompt": "Generated AI Prompt" }`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🗄️ Database Schema (Supabase)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sql
+CREATE TABLE prompts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question TEXT NOT NULL,
+  generated_prompt TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT now()
+);
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🎨 Tech Stack
+
+- **Next.js 15 (App Router)** - Server Components & API Routes
+- **Supabase** - PostgreSQL as a Database
+- **ChatGPT-4o** - AI-generated prompts
+- **TanStack Table (React Table)** - Sorting, Pagination, and Searching
+- **Tailwind CSS** - Styling
+
+---
+
+## 🚀 Deploying to Vercel
+
+To deploy this project on **Vercel**, run:
+
+```bash
+npx vercel
+```
+
+Follow the instructions to complete the deployment. Your app will be live at `https://your-vercel-app.vercel.app/`.
+
+---
+
+## 🎯 Future Improvements
+
+✅ Add categories/tags for better prompt management.
+✅ Implement a favorite system to save frequently used prompts.
+✅ Enhance UI with animations and a better UX.
+
+Feel free to contribute and improve this project! 🔥
