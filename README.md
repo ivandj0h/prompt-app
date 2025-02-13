@@ -1,16 +1,22 @@
-# Auto-Generate Prompt CRUD with Next.js 15, Supabase & ChatGPT-4o
+# Auto-Generate Prompt Chat App with Next.js 15, Supabase & ChatGPT-4o
 
-This project is a **Next.js 15 App Router** application that provides a CRUD system for automatically generating AI prompts using **ChatGPT-4o**. The generated prompts are stored in **Supabase** and displayed in a **data table** with **searching, pagination, and sorting** features.
+This project is a **Next.js 15 App Router** application that provides an interactive chat system for automatically generating AI responses using **ChatGPT-4o**. The conversation history is stored in **Supabase** and displayed in a **chat interface** with **file uploads, emoji support, and auto-scroll features**.
+
+---
 
 ## 🚀 Features
 
-✅ **User Input Form**: Users can input question types in a textbox.
-✅ **AI Prompt Generation**: The app calls ChatGPT-4o to generate a structured prompt based on user input.
-✅ **Supabase Database Integration**: Generated prompts are stored in a PostgreSQL database.
-✅ **Interactive Data Table**: View, search, sort, and paginate stored prompts.
-✅ **Next.js 15 (App Router) Optimized**: Fully serverless and API-based CRUD.
+✅ **User Input Form**: Users can input messages and interact with AI in a real-time chat.
+✅ **AI-Powered Responses**: The app calls ChatGPT-4o to generate intelligent responses based on user input.
+✅ **Supabase Database Integration**: All chat history is stored in a PostgreSQL database.
+✅ **File Uploads**: Users can send images/files along with their messages.
+✅ **Emoji Picker**: Users can select emojis to enhance their messages.
+✅ **Auto-Scroll to Latest Message**: Ensures that the latest messages are always visible.
+✅ **Next.js 15 (App Router) Optimized**: Fully serverless and API-based chat system.
 
 ---
+
+![ChatApp](./public/chat.png)
 
 ## 🛠️ Getting Started
 
@@ -49,22 +55,30 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ## 📦 API Endpoints
 
-### 🔹 Generate a Prompt
+### 🔹 Send a Message
 
-**Endpoint:** `POST /api/generate`
+**Endpoint:** `POST /api/chat`
 
-- **Request Body:** `{ "question": "Your question here" }`
-- **Response:** `{ "id": "uuid", "question": "Your question", "generated_prompt": "Generated AI Prompt" }`
+- **Request Body:** `{ "message": "Your message here" }`
+- **Response:** `{ "id": "uuid", "sender": "user", "message": "Your message", "response": "AI Response" }`
+
+### 🔹 Fetch Chat History
+
+**Endpoint:** `GET /api/chat-history`
+
+- **Response:** `[{ "id": "uuid", "sender": "user", "message": "User message", "response": "AI Response" }]`
 
 ---
 
 ## 🗄️ Database Schema (Supabase)
 
 ```sql
-CREATE TABLE prompts (
+CREATE TABLE chat_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  question TEXT NOT NULL,
-  generated_prompt TEXT NOT NULL,
+  sender TEXT NOT NULL,
+  message TEXT NOT NULL,
+  response TEXT,
+  file TEXT,
   created_at TIMESTAMP DEFAULT now()
 );
 ```
@@ -75,9 +89,10 @@ CREATE TABLE prompts (
 
 - **Next.js 15 (App Router)** - Server Components & API Routes
 - **Supabase** - PostgreSQL as a Database
-- **ChatGPT-4o** - AI-generated prompts
-- **TanStack Table (React Table)** - Sorting, Pagination, and Searching
+- **ChatGPT-4o** - AI-generated responses
 - **Tailwind CSS** - Styling
+- **ShadCN UI** - Custom UI Components
+- **React Code Blocks** - Pretty-print AI-generated code responses
 
 ---
 
@@ -95,8 +110,8 @@ Follow the instructions to complete the deployment. Your app will be live at `ht
 
 ## 🎯 Future Improvements
 
-✅ Add categories/tags for better prompt management.
-✅ Implement a favorite system to save frequently used prompts.
-✅ Enhance UI with animations and a better UX.
+✅ Implement WebSockets for real-time chat updates.
+✅ Allow users to download chat history.
+✅ Improve UI with better animations and themes.
 
 Feel free to contribute and improve this project! 🔥
